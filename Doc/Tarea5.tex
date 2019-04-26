@@ -1,1 +1,196 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amssymb}
 
+% Formato de página
+\usepackage[letterpaper, margin = 1.5cm]{geometry}
+
+% Más opciones para enumerar
+\usepackage{enumitem}
+
+% Manejo de imágenes
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\graphicspath{{img/}}
+\usepackage{float}
+
+\begin{document}
+    \title{
+        Fundamentos de bases de datos \\
+        Tarea 5 \\
+        Normalización
+    }
+    \author{
+        Díaz Gómez Silvia \\
+        Eugenio Aceves Narciso Isaac \\
+        Quiroz Castañeda Edgar
+    }
+    \date {
+        26 de Abril del 2019    
+    }
+    \maketitle
+    
+    \begin{enumerate}
+    	
+    
+    \item { \textbf{Preguntas de repaso}}
+    \begin{enumerate}[label = \alph*.]
+        \item ¿Qué es una dependencia funcional y cómo se define?
+        \item ¿Para qué sirve el concepto de \textbf{dependencia} en la normalización?
+        \item Sea A la llave de R(A, B, C). Indica \textbf{todas} las dependencias funcionales que implica \textbf{A}. \\
+        $A \rightarrow BC$\\
+        
+        \item ¿Qué es una forma normal? ¿Cuál es el objetivo de normalizar un modelo de datos?
+        \item ¿En qué casos es preferible lograr \textbf{3NF} en vez de \textbf{BCNF}?
+    \end{enumerate}
+
+    \item
+    Proporciona algunos ejemplos que demuestren que las siguientes reglas no son válidas:
+    \begin{enumerate}
+    	\item Si \textbf{A $\rightarrow$ B}, entonces  \textbf{B $\rightarrow$ A}
+    	\item Si \textbf{AB $\rightarrow$ C}, entonces  \textbf{A $\rightarrow$ C y B $\rightarrow$ C}
+    	\item Si \textbf{A $\twoheadrightarrow$ C}, entonces \textbf{A $\rightarrow$ C}
+    \end{enumerate}
+       
+    \item Para cada uno de los esquemas que se muestran a continuación:
+    
+    \begin{enumerate}
+    	\item \textbf{R(A,B,C,D,E)} con \textbf{F=\{AB $\rightarrow$ CD, E $\rightarrow$ C, D $\rightarrow$ B \}}
+    	\item \textbf{R(A,B,C,D,E)}  con \textbf{F=\{AB $\rightarrow$ C, DE $\rightarrow$ C, B $\rightarrow$ D \}}
+    \end{enumerate}   
+
+\begin{itemize}
+	\item Especifica  de ser posible \textbf{dos DF no triviales} que se puedan derivar de las dependencias funcionales dadas.
+	Usando las reglas de inferencia de Armstrong podemos deducir algunas DF.
+	\begin{enumerate}
+		\item \textbf{Aumento:} DC $\rightarrow$ BC y EA $\rightarrow$ CA\\ 
+		\item 
+		 
+		
+		
+	\end{enumerate}
+	\item Indica una \textbf{llave candidata} para \textbf{R} \\
+	Usamos la cerradura para encontrar una llave candidata
+	\begin{enumerate}
+		\item \{AB\}+= \{ABCD\}, \{E\}+= \{EC\}, \{D\}+= \{DB\}, la cerradura de AB es la que contiene mas elementos de la relación por lo tanto una llave para R sería : \textbf{ABE}\\ 
+		\item \{AB\}+= \{ABCD\}, \{DE\}+= \{E\}, \{B\}+= \{BD\}, la cerradura de AB es la que contiene mas elementos de la relación por lo tanto una llave para R sería : \textbf{ABE}\\ 
+		
+		
+		
+	\end{enumerate}
+	
+	\item Especifica \textbf{todas las violaciones}  a la \textbf{BCNF}\\
+	\begin{enumerate}
+		\item Las tres dependencias son violaciones a BCNF porque no aparece del lado izquierdo de las DF la llave que es ABE.\\
+		
+		\item Las tres dependencias son violaciones a BCNF porque no aparece del lado izquierdo de las DF la llave que es ABE.
+	\end{enumerate}
+	\item \textbf{Normaliza} de acuerdo a \textbf{BCNF}, asegúrate de indicar cuáles son las relaciones resultantes con sus respectivas dependencias funcionales.
+	\begin{enumerate}
+		\item Como todas las DF son violaciones, tomamos a AB $\rightarrow$ CD y su cerradura es  \{AB\}+= \{ABCD\}.
+		Así que definimos dos nuevas relaciones S y T,\\
+		S(A,B,C,D) con \{AB $\rightarrow$ B , D $\rightarrow$ B\}\\
+		T(A,B,E) con ABE $\rightarrow$ ABE y perdemos E $\rightarrow$ C\\
+		En S la llave es AB por lo tanto D $\rightarrow$ B es una violación.\\
+		Ahora para S tomamos D $\rightarrow$ B y calculamos la cerradura para \{D\}+=\{DB\}\\
+		Definimos otras dos nuevas relaciones\\
+		U(D,B) con D $\rightarrow$ B\\
+		V(D,A,C) con DAC $\rightarrow$ DAC\\
+		En esta nueva partición se pierde AB $\rightarrow$ CD.\\
+		Observamos que en U y V ya no se tienen violaciones, por lo tanto el esquema en BCNF para R es:\\
+		\textbf{T(A,B,E)} con \textbf{ABE $\rightarrow$ ABE}\\
+		\textbf{U(D,B)} con \textbf{D $\rightarrow$ B}\\
+		\textbf{V(D,A,C)} con \textbf{DAC $\rightarrow$ DAC}\\
+		
+		\item Ya esta resuelto solo falta escribirlo aqui
+		
+	\end{enumerate}
+\end{itemize}
+   
+   \item Para  cada una  de  las  siguientes  relaciones  con  su  respectivo  conjunto  de  dependencias funcionales:
+   \begin{enumerate}
+   	\item \textbf{R(A,B,C,D,E,F)} con \textbf{F = \{B $\rightarrow$ D, B $\rightarrow$ E, D $\rightarrow$ F, AB $\rightarrow$ C\}}
+   	\item \textbf{R(A,B,C,D,E)} con \textbf{F = \{A $\rightarrow$ BC, B $\rightarrow$ D, CD $\rightarrow$ E, E $\rightarrow$ A\}}
+   \end{enumerate}
+
+   \begin{itemize}
+   	\item Indica \textbf{todas las violaciones } a la \textbf{3NF}\\
+   	Que no aparezca una llave candidata en el lazo izquierdo de las DF o que no aparezca a la derecha.\\
+   	Calculamos la cerradura:\\
+   	\begin{enumerate}
+   		\item \{B\}+=\{BDE\}, \{D\}+=\{DF\}, \{AB\}+=\{ABCDE\} una llave para R es \textbf{AB}\\ Las dependencias que violan la 3NF son  B $\rightarrow$ D, B $\rightarrow$ E, D $\rightarrow$ F
+   	    \item \{A\}+=\{ABCDE\}, \{B\}+=\{B\},\{CD\}+=\{CDE\}, \{E\}+=\{EABCD\} una llave para R es \textbf{A} ó \textbf{E}\\ B $\rightarrow$ D viola la 3NF
+   	\end{enumerate}
+   	\item \textbf{Normaliza} de acuerdo a la \textbf{3NF}\\
+   	Para normalizar en 3NF se deben buscar superfluos por la izquierda y por la derecha.
+   	\begin{enumerate}
+   		\item \begin{itemize}
+   			\item Superfluos por la izquierda:\\
+   			En este caso la dependencia que tiene mas de un atributo por la izquierda el la DF que contiene a la llave del lado izquierdo por lo tanto no es necesario verificarlo.\\
+   			\item Superflos por la derecha:\\
+   			Haciendo uso de la propiedad de la union tenemos que F queda como F=\{B $\rightarrow$ DE, D $\rightarrow$ F, AB $\rightarrow$ C\}\\
+   			Tomamos la dependencia que se violacion a 3NF y tenga mas de un atributo a la derecha, B $\rightarrow$ DE y buscamos elementos superfluos:\\
+   			¿D es superfluo? B $\rightarrow$ E\\
+   			obtenemos un nuevo conjunto de dependencias funcionales F' = \{B $\rightarrow$ E, D $\rightarrow$ F, AB $\rightarrow$ C\} y calculamos la cerradura para B\\
+   			\{B\}+=\{BE\} como D no aparece por lo tanto D no es superfluo.\\
+   			
+   			¿E es superfluo? B $\rightarrow$ D\\
+   			obtenemos un nuevo conjunto de dependencias funcionales F' = \{B $\rightarrow$ D, D $\rightarrow$ F, AB $\rightarrow$ C\} y calculamos la cerradura para B\\
+   			\{B\}+=\{BDF\} como E no aparece por lo tanto E no es superfluo.\\
+   			
+   			Así que obtenemos que F$_{min}$ = \{B $\rightarrow$ DE, D $\rightarrow$ F, AB $\rightarrow$ C\} a partir de este conjunto creamos una relación por cada DF\\
+   			R$_1$(B,D,E) con B $\rightarrow$ DE\\
+   			R$_2$(D,F) con  D $\rightarrow$ F\\
+   			R$_3$(A,B,C) con AB $\rightarrow$ C\\
+   			
+   			Como la llave esta contenida en la relación R$_3$ por lo tanto esta es la normalización para R en 3NF.\\
+   			\item Resuelto solo falta escribirlo aqui.
+   			
+   		\end{itemize}
+   	\end{enumerate}
+   	
+   \end{itemize}
+ 
+    	\item Sea el esquema:\\
+    	\begin{center}
+    		\textbf{R(A,B,C,D,E,F)} con \textbf{F=\{BD $\rightarrow$ E, CD $\rightarrow$ A, E $\rightarrow$ C, B $\rightarrow$ D\}}
+    	\end{center} 
+    	\begin{itemize}
+    		\item ¿Qué puedes decir de \textbf{{A}+} y \textbf{{F}+}?
+    		\item Calcula \textbf{{B}+}, ¿qué puedes decir de esta cerradura?\\
+    		\{B\}+=\{BDECA\} Casí contiene todos los atributos de la relación por lo tanto podemos agregarle el atributo F y sería una llave para la relación R.
+    		\item  Obtén todas las \textbf{llaves candidatas}.\\
+    		\{BD\}+=\{BDECA\},\{CD\}+=\{CDA\}, \{E\}+=\{EC\}, \{B\}+=\{BDECA\}\\
+    		Las llaves candidatas son: BF , BDF
+    		\item  ¿R cumple con \textbf{BCNF}? ¿Cumple con \textbf{3NF}? (en caso contrario normaliza) \\
+    		Ya esta resuelto
+    		\item  Se ha decidido dividir \textbf{R} en las siguientes relaciones \textbf{S(A,B,C,D,F)} y \textbf{T(C,E)}, ¿se puede recuperar la información de \textbf{R}? No podemos recuperar toda la informacion de R
+    	\end{itemize}
+    
+    
+    	\item Para  cada  uno  de  los  esquemas,  con  su  respectivo  conjunto  de  dependencias  multivaluadas, resuelve los siguientes puntos:
+    	\begin{enumerate}
+    		\item \textbf{R(A,B,C,D)} con \textbf{DMV = {AB $\twoheadrightarrow$ C, B $\rightarrow$ D}}
+    		\item \textbf{R(A,B,C,D,E)} con \textbf{DMV = { A $\twoheadrightarrow$ B, AB $\rightarrow$ C, A $\rightarrow$ D, AB $\rightarrow$ E}}
+    	\end{enumerate}
+    
+    \begin{itemize}
+    	\item Encuentra \textbf{todas las violaciones} a la \textbf{4NF}
+    	\item \textbf{Normaliza} de acuerdo a la \textbf{4NF}
+    \end{itemize}
+    
+    	\item Se tiene la siguiente relación:   	
+    	\begin{center}
+    		 \textbf{R(idEnfermo, idCirujano, fechaCirugía, nombreEnfermo, direcciónEnfermo, nombreCirujano,n nombreCirugía, medicinaSuministrada, efectosSecundarios)}
+    	\end{center}	 
+    	
+    	\begin{itemize}
+    	\item Expresa las siguientes restricciones en forma de \textbf{dependencias funcionales}:\\
+    	A un enfermo sólo se le da una medicina después de la operación. Si existen efectos secundarios estos dependen sólo de la medicina suministrada. Sólo puede existir un efecto secundario por medicamento.
+    	\item Especifica  otras \textbf{dependencias  funcionales} o \textbf{multivaluadas} que  deban  satisfacerse  en  la relación R. Por cada una que definas, deberá aparecer un enunciado en español como en el inciso anterior.
+    	\item \textbf{Normaliza} utilizando el conjunto de dependencias establecido en los puntos anteriores.
+    \end{itemize}
+    	
+\end{enumerate}
+\end{document}
