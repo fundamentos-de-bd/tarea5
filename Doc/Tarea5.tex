@@ -86,16 +86,22 @@
     Proporciona algunos ejemplos que demuestren que las siguientes reglas no son válidas:
     \begin{enumerate}
     	\item Si \textbf{A $\rightarrow$ B}, entonces  \textbf{B $\rightarrow$ A}\\
-    	Supongamos que "Si llueve entonces hay nubes en el cielo". Lo que sugiere el inciso es que
-    	\textit{"Si hay nubes en el cielo, llueve"} pero esto claramente no es cierto a pesar de 
-    	que la primera sí es una regla válida.
+    	En un sistema de registro de vehiculos y conductores (particulares), si hay un auto, es necesario que le
+    	asigne un propietario (quien pagará multas y se hará responsable) y entonces a todo auto 'A' le asigno una
+    	persona con licencia 'B'. No obstante, no todas las personas con licencia estan obligadas a tener un auto 
+    	propio y entonces la segunda dependencia funcional realmente no existe/se cumple.
     	
     	\item Si \textbf{AB $\rightarrow$ C}, entonces  \textbf{A $\rightarrow$ C y B $\rightarrow$ C}\\
-    	Podemos tomar 'A' como \textit{tener dinero (suficiente)}, 'B' como \textit{hay lugar en el cine para ver 
-    	"DC:Los Vendedores, Jugada Final"} y 'C' \textit{ver la película "DC:Los Vendedores, Jugada Final"}.
-    	La primera regla tiene sentido (si tienes dinero y hay lugares, vas a ir al cine a ver la película) pero
-    	ni A $\rightarrow$ C se cumple, ya que el cine podría estar lleno y no importaría que tienes dinero, ni
-    	B $\rightarrow$ C, ya que puede haber lugares pero sin dinero para boletos, no puedes ir al cine.
+    	Podemos tomar 'A' como el dinero que tiene una persona, 'B' como el número de lugares disponibles en
+    	sus cines asociados (digamos, los más cercanos de la franquicia Mexipolis) y 'C' un atributo que nos
+    	indica si la persona ha visto o no la película \textit{"DC:Los Vendedores, Jugada Final"} porque queremos
+    	saber si podemos hablar de \textit{\textbf{spoilers}} con la persona.
+    	
+    	La primera regla tiene sentido (El que tengas dinero suficiente para un boleto y que haya lugares en el cine
+    	pueden determinar si vas a ver la película/ya la viste) pero ni A $\rightarrow$ C se cumple, ya que el cine 
+    	podría estar lleno y no importaría que tienes dinero, ni B $\rightarrow$ C, ya que puede haber lugares pero
+    	sin dinero para boletos no puedes ir al cine. Por lo tanto ninguna de las dos puede determinar realmente si
+    	ya viste la pelicula (a ambas les falta información para eso) y no existen esas dependencias funcionales.
     	
     	\item Si \textbf{A $\twoheadrightarrow$ C}, entonces \textbf{A $\rightarrow$ C}\\
     	Digamos que 'A' es el identificador de un equipo de tareas en FBD y 'C' es la calificación de una tarea. Entonces
