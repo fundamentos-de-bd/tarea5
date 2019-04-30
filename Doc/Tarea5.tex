@@ -2,6 +2,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[spanish]{babel}
 \usepackage{amssymb}
+\usepackage{amsmath}
 
 % Formato de página
 \usepackage[letterpaper, margin = 1.5cm]{geometry}
@@ -268,7 +269,81 @@
     
     \begin{itemize}
     	\item Encuentra \textbf{todas las violaciones} a la \textbf{4NF}
+    	 \begin{enumerate}
+    	     \item \textbf{R(A,B,C,D)} con \textbf{DMV = {AB $\twoheadrightarrow$ C, B $\rightarrow$ D}}\\
+    	     Consideremos las posibles llaves calculando las cerraduras.
+    	     \[\{B\}+ = \{BD\}\]
+    	     Por lo que una llave puede ser \textbf{ABC}.\\
+    	     Como ninguna de las dependencias tiene a esta llave en su
+    	     parte izquierda, entonces toda \textbf{DMV} son violaciones
+    	     a la cuarta
+    	     forma normal.
+    	     \item  \textbf{R(A,B,C,D,E)} con \textbf{DMV = { A $\twoheadrightarrow$ B, AB $\rightarrow$ C, A $\rightarrow$ D, AB $\rightarrow$ E}} \\
+    	     Consideremos las posibles llaves calculando las cerraduras.
+    	     \begin{align*}
+    	         \{AB\}+ &= \{ABCDE\} \\
+    	         \{A\}+ &= \{AD\} \\
+    	     \end{align*}
+    	     Por lo que una llave es \textbf{AB}.\\
+    	     Por lo que las violaciones son 
+    	     \textbf{ A$\twoheadrightarrow$ B} y \textbf{A $\rightarrow$ D}
+    	 \end{enumerate}
     	\item \textbf{Normaliza} de acuerdo a la \textbf{4NF}
+    	\begin{enumerate}
+    	    \item \textbf{R(A,B,C,D)} con \textbf{DMV = {AB $\twoheadrightarrow$ C, B $\rightarrow$ D}}\\
+    	    Para intentar preservar las dependencias multivaluadas,
+    	    primero empezemos seleccionando una violación que sea
+    	    dependencia funcional, que es este caso sólo puede ser 
+    	    \textbf{B $\rightarrow$ D}.
+    	    Entonces, \textbf{R} se parte en dos nuevas tablas
+    	    $R_1(B, D)$ y $R_2(A, B, C)$.\\
+    	    En $R_1$ se preserva únicamente la dependencia funcional 
+    	    \textbf{B $\rightarrow$ D}, que como incluye a todos los
+    	    atributos de la relación es trivial, por lo que $R_1$ ya
+    	    está en \text{4NF}.
+    	    En $R_2$, sólo se preserva una dependencia multivaluada, pero
+    	    esta incluye a todos los elementos de $R_2$, por lo que no es
+    	    una violación a la \textbf{4NF}. Por lo que $R_2$ también ya
+    	    está normalizada.\\
+    	    Ahora, hay que revisar si la llave está contenida en alguna
+    	    de las relaciones. Efectivamente, la llave está en $R_2$, por
+    	    lo que no es necesario agregar ninguna relación.\\
+    	    Entonces $R_1$ y $R_2$ son la normalización en \textbf{4NF} de
+    	    \textbf{R}.
+    	    \item \textbf{R(A,B,C,D,E)} con \textbf{DMV = { A $\twoheadrightarrow$ B, AB $\rightarrow$ C, A $\rightarrow$ D, AB $\rightarrow$ E}}\\
+    	    Para intentar preservar las dependencias multivaluadas,
+    	    primero empezamos seleccionando una violación que sea
+    	    dependencia funcional, que es este caso sólo puede ser 
+    	    \textbf{A $\rightarrow$ D}.\\
+    	    Entonces, \textbf{R} se parte en dos nuevas tablas
+    	    $R_1(A, D)$ y $R_2(A, B, C, E)$.\\
+    	    En $R_1$ se preserva únicamente la dependencia funcional 
+    	    \textbf{A $\rightarrow$ D}, que como incluye a todos los
+    	    atributos de la relación es trivial, por lo que $R_1$ ya
+    	    está en \text{4NF}. \\
+    	    Mientras que en $R_2$ se siguen manteniendo todas las demás 
+    	    dependencias multivaluadas.\\
+    	    Por esto, se sigue teniendo que \textbf{AB} sigue siendo llave
+    	    y por lo tanto \text{A $\twoheadrightarrow$ B} sigue siendo
+    	    violación de \textbf{4NF}, y de hecho la única.\\
+    	    Entonces, tomándola como violación, $R_2$ se parte en dos
+    	    nuevas tablas $R_3(A, B)$ y $R_4(A, C, E)$.\\
+    	    En $R_3$ se preserva únicamente \text{A $\twoheadrightarrow$ B},
+    	    que como tiene a todos los atributos de la relación. no es 
+    	    violación de la \textbf{4NF}, por lo que $R_3$ ya está
+    	    normalizada.\\
+    	    En $R_4$ no se preserva ninguna dependencia, por lo que las
+    	    únicas presentes son las triviales, por lo que $R_4$ también
+    	    ya está en \textbf{4NF}.\\
+    	    Notemos que en este último paso se perdieron las dependencias
+    	    funcionales \textbf{AB $\rightarrow$ E} y \textbf{AB
+    	    $\rightarrow$ C}.
+    	    Por último, como la llave original está contenida en $R_3$, 
+    	    no es necesario agregar ninguna relación.\\
+    	    Por lo que $R_1$, $R_3$ y $R_4$ son la normalización en
+    	    \textbf{4NF} de \text{R}.
+    	    
+    	\end{enumerate}
     \end{itemize}
     
     	\item Se tiene la siguiente relación:   	
