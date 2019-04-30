@@ -419,7 +419,7 @@
     
     	\item Se tiene la siguiente relación:   	
     	\begin{center}
-    		 \textbf{R(idEnfermo, idCirujano, fechaCirugía, nombreEnfermo, direcciónEnfermo, nombreCirujano,n nombreCirugía, medicinaSuministrada, efectosSecundarios)}
+    		 \textbf{R(idEnfermo, idCirujano, fechaCirugía, nombreEnfermo, direcciónEnfermo, nombreCirujano, nombreCirugía, medicinaSuministrada, efectosSecundarios)}
     	\end{center}	 
     	
     \begin{itemize}
@@ -445,6 +445,23 @@
     	\end{enumerate}
     	
     	\item \textbf{Normaliza} utilizando el conjunto de dependencias establecido en los puntos anteriores.
+    	
+    	Para normalizar usaré 4FN (DMV no dejan opción). Primero hay que buscar una llave candidata a partir de la cerradura. En este caso,
+    	\{A,C,G,E,D\} funciona. Ahora buscamos violaciones (todas las demás reglas lo son) y tomamos $H \rightarrow I$, por ser no-DMV,
+    	con lo que nos quedan dos relaciones R$_1$(H,I) y R$_2$(A,B,C,D,E,F,G). R$_1$ ya esta en 4FN, así que seguirmos sobre R$_2$...
+    	
+    	Podemos considerar \{C,G,E,D\} como la llave, buscamos violaciones de preferencia no-DMV y encontramos $C,G \rightarrow B,F$ y ahora
+    	tenemos R$_3$(B,C,G,F) y R$_4$(A,E,D). R$_4$ ya esta listo, ahora sólo queda R$_3$...
+    	
+    	Esta vez usamos la DMV $B,F \doubleheadrightarrow C,G$ y nos quedan R$_5$(B,C,G,F) y R$_6$(B,F) y ahora terminamos. Como un pequeño
+    	recap, las dependencias que son válidas en cada relación (tenemos 4) son:
+    	\begin{itemize}
+    	    \item En R$_1$, $H \rightarrow I$. Esta tabla tiene medicamentos y efectos secundarios.
+    	    \item En R$_4$, $A,E,D \rightarrow A,E,D$.  Esta tabla tiene idEnfermo, nombreEnfermo y direcciónEnfermo
+    	    \item En R$_5$, $C,G \rightarrow B,F$.  Esta tabla tiene fechaCirujía, nombreCirujía, idCirujano, nombreCirujano
+    	    \item En R$_6$, $B,F \rightarrow B,F$. Esta tabla tiene idCirujano, nombreCirujano.
+    	\end{itemize}
+    	Entonces terminamos con 4 tablas que podríamos llamar Enfermo, Cirujano, Cirujía y Medicamento/Efectos. Suena bien.
     \end{itemize}
     	
 \end{enumerate}
