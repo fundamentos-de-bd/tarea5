@@ -98,9 +98,14 @@
     	B $\rightarrow$ C, ya que puede haber lugares pero sin dinero para boletos, no puedes ir al cine.
     	
     	\item Si \textbf{A $\twoheadrightarrow$ C}, entonces \textbf{A $\rightarrow$ C}\\
-    	Digamos que 'A' es \textit{"El equipo hace su tarea de FBD"} y 'C' es \textit{El equipo saca más de 10 en esa
-    	tarea de FBD}. Si se cumpliera lo segundo, estaríamos dejando abierta la posibilidad de que se cumpla/ocurra
-    	'C' sin que pase 'A', i.e. Un equipo puede sacar 10 en su tarea sin haberla hecho (lo cual no ocurre :( ).
+    	Digamos que 'A' es el identificador de un equipo de tareas en FBD y 'C' es la calificación de una tarea. Entonces
+    	podemos tener una tabla con (1,5T1),(1,6T2),(2,10T2) que representa que el equipo 1 ha entregado dos tareas con 5 
+    	y 6 de calificación mientras que el equipo 2 sólo entregó la tarea 2 pero sacó 10 en ella.
+    	
+    	La primera representa una DMV (Dependencia Multivaluada). Si se cumpliera lo segundo ($\rightarrow$), estaríamos 
+    	obligando a que a un equipo siempre se le asigne la misma claifiación/tarea, i.e. (1,10T2),(1,7T3) no sería válido
+    	porque a cada valor de 'A' le debe corresponder un único valor en 'C', pero esto no es lo que se planteaba la
+    	primera de las reglas originalmente.
     	
     \end{enumerate}
        
@@ -419,14 +424,18 @@
     	Sea \textbf{R}(A,B,C,D,E,F,G,H,I), cada letra el atributo que le corresponde de acuerdo a su posición y la definición de \textbf{R}.
     	\begin{enumerate}
     	    \item $A,C,G \rightarrow H$\\
-    	    \item $H \equiv I$\\
+    	    \item $H \rightarrow I$\\
     	\end{enumerate}
     	
     	\item Especifica  otras \textbf{dependencias  funcionales} o \textbf{multivaluadas} que  deban  satisfacerse  en  la relación R. 
     	Por cada una que definas, deberá aparecer un enunciado en español como en el inciso anterior.
-    	\textit{Cada cirugía tiene exactamente a un cirujano registrado como a cargo de esta.}
+    	\textit{Cada cirugía tiene exactamente a un cirujano registrado como a cargo de esta. Un cirujano puede haber estado a cargo de
+    	varias cirujias distintas. Un enfermo puede haber tenido varias cirujias. En cada cirujía se trata a un solo enfermo.}
     	\begin{enumerate}
     	    \item $C,G \rightarrow B,F$\\
+    	    \item B,F $\twoheadrightarrow$ C,G\\
+    	    \item A $\twoheadrightarrow$ C,G\\
+    	    \item C,G $\rightarrow$ A\\
     	\end{enumerate}
     	
     	\item \textbf{Normaliza} utilizando el conjunto de dependencias establecido en los puntos anteriores.
