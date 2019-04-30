@@ -19,7 +19,7 @@
     \title{
         Fundamentos de bases de datos \\
         Tarea 5 \\
-        Normalización
+        Dependencias y Normalización
     }
     \author{
         Díaz Gómez Silvia \\
@@ -62,10 +62,10 @@
 
 \begin{itemize}
 	\item Especifica  de ser posible \textbf{dos DF no triviales} que se puedan derivar de las dependencias funcionales dadas.
-	Usando las reglas de inferencia de Armstrong podemos deducir algunas DF.
+	Usando la cerradura de atributos.
 	\begin{enumerate}
-		\item \textbf{Aumento:} DC $\rightarrow$ BC y EA $\rightarrow$ CA\\ 
-		\item 
+		\item \textbf{\{AD\}}+= \{ADBC\} y \textbf{\{AE\}}+=\{AEC\} a partir de estas cerraduras obtenemos las siguientes dependencias: AD $\rightarrow$ BC y AE $\rightarrow$ C\\ 
+		\item \textbf{\{AB\}}+= \{ABCD\} y \textbf{\{BE\}}+=\{EBDC\} a partir de estas cerraduras obtenemos las siguientes dependencias: AB $\rightarrow$ CD y BE $\rightarrow$ DC\\ 
 		 
 		
 		
@@ -90,7 +90,7 @@
 	\begin{enumerate}
 		\item Como todas las DF son violaciones, tomamos a AB $\rightarrow$ CD y su cerradura es  \{AB\}+= \{ABCD\}.
 		Así que definimos dos nuevas relaciones S y T,\\
-		S(A,B,C,D) con \{AB $\rightarrow$ B , D $\rightarrow$ B\}\\
+		S(A,B,C,D) con \{AB $\rightarrow$ CD , D $\rightarrow$ B\}\\
 		T(A,B,E) con ABE $\rightarrow$ ABE y perdemos E $\rightarrow$ C\\
 		En S la llave es AB por lo tanto D $\rightarrow$ B es una violación.\\
 		Ahora para S tomamos D $\rightarrow$ B y calculamos la cerradura para \{D\}+=\{DB\}\\
@@ -103,7 +103,19 @@
 		\textbf{U(D,B)} con \textbf{D $\rightarrow$ B}\\
 		\textbf{V(D,A,C)} con \textbf{DAC $\rightarrow$ DAC}\\
 		
-		\item Ya esta resuelto solo falta escribirlo aqui
+		\item Como todas las DF son violaciones, tomamos a B $\rightarrow$ D y su cerradura es  \{B\}+= \{BD\}.
+		Así que definimos dos nuevas relaciones S y T,\\
+		S(B,D) con \{B $\rightarrow$ D\}\\
+		T(B,A,C,E) con AB $\rightarrow$ C y perdemos DE $\rightarrow$ C\\
+		En S, B es llave por lo tanto  S ya esta en BCNF.\\
+		Ahora en T la llave sigue siendo ABE por lo tanto  AB $\rightarrow$ C es violación, calculamos la cerradura para \{AB\}+=\{ABC\}\\
+		Definimos otras dos nuevas relaciones\\
+		U(A,B,C) con AB $\rightarrow$ C\\
+		V(A,B,E) con ABE $\rightarrow$ ABE\\
+		Observamos que en U y V ya no se tienen violaciones, por lo tanto el esquema en BCNF para R es:\\
+		\textbf{S(B,D)} con \textbf{B $\rightarrow$ D}\\
+		\textbf{U(A,B,C)} con \textbf{AB $\rightarrow$ C}\\
+		\textbf{V(A,B,E)} con \textbf{ABE $\rightarrow$ ABE}\\ 
 		
 	\end{enumerate}
 \end{itemize}
@@ -120,16 +132,16 @@
    	Calculamos la cerradura:\\
    	\begin{enumerate}
    		\item \{B\}+=\{BDE\}, \{D\}+=\{DF\}, \{AB\}+=\{ABCDE\} una llave para R es \textbf{AB}\\ Las dependencias que violan la 3NF son  B $\rightarrow$ D, B $\rightarrow$ E, D $\rightarrow$ F
-   	    \item \{A\}+=\{ABCDE\}, \{B\}+=\{B\},\{CD\}+=\{CDE\}, \{E\}+=\{EABCD\} una llave para R es \textbf{A} ó \textbf{E}\\ B $\rightarrow$ D viola la 3NF
+   	    \item \{A\}+=\{ABCDE\}, \{B\}+=\{B\},\{CD\}+=\{CDEAB\}, \{E\}+=\{EABCD\} una llave para R es \textbf{A}, \textbf{E} o \textbf{DC}\\ B $\rightarrow$ D viola la 3NF
    	\end{enumerate}
    	\item \textbf{Normaliza} de acuerdo a la \textbf{3NF}\\
    	Para normalizar en 3NF se deben buscar superfluos por la izquierda y por la derecha.
    	\begin{enumerate}
    		\item \begin{itemize}
    			\item Superfluos por la izquierda:\\
-   			En este caso la dependencia que tiene mas de un atributo por la izquierda el la DF que contiene a la llave del lado izquierdo por lo tanto no es necesario verificarlo.\\
+   			En este caso la dependencia que tiene mas de un atributo por la izquierda es la DF que contiene a la llave del lado izquierdo por lo tanto no es necesario verificarlo.\\
    			\item Superflos por la derecha:\\
-   			Haciendo uso de la propiedad de la union tenemos que F queda como F=\{B $\rightarrow$ DE, D $\rightarrow$ F, AB $\rightarrow$ C\}\\
+   			Haciendo uso de la propiedad de la unión tenemos que F queda como F=\{B $\rightarrow$ DE, D $\rightarrow$ F, AB $\rightarrow$ C\}\\
    			Tomamos la dependencia que se violacion a 3NF y tenga mas de un atributo a la derecha, B $\rightarrow$ DE y buscamos elementos superfluos:\\
    			¿D es superfluo? B $\rightarrow$ E\\
    			obtenemos un nuevo conjunto de dependencias funcionales F' = \{B $\rightarrow$ E, D $\rightarrow$ F, AB $\rightarrow$ C\} y calculamos la cerradura para B\\
@@ -145,7 +157,34 @@
    			R$_3$(A,B,C) con AB $\rightarrow$ C\\
    			
    			Como la llave esta contenida en la relación R$_3$ por lo tanto esta es la normalización para R en 3NF.\\
-   			\item Resuelto solo falta escribirlo aqui.
+   			\end{itemize}
+   			
+   		\item \begin{itemize}	
+   			\item Superfluos por la izquierda:\\
+   			En este caso la dependencia que tiene mas de un atributo por la izquierda es CD $\rightarrow$ E y verificamos si algun atributo es superfluo.\\
+   			¿C es superfluo? D $\rightarrow$ E\\
+   			\textbf{\{D\}}+=\{D\}, E no aparece en la cerradura de D, por lo tanto C no es superfluo.\\
+   			¿D es superfluo? C $\rightarrow$ E\\
+   			\textbf{\{C\}}+=\{C\}, E no aparece en la cerradura de C, por lo tanto D no es superfluo.\\
+   			Esta parte no era necesario verificarlo porque CD es llave candidata.
+   			
+   			\item Superflos por la derecha:\\
+   			Tomamos la dependencia que tenga mas de un atributo a la derecha, A $\rightarrow$ BC y buscamos elementos superfluos:\\
+   			¿B es superfluo? A $\rightarrow$ C \\
+   			obtenemos un nuevo conjunto de dependencias funcionales F' = \{A $\rightarrow$ C, B $\rightarrow$ D, CD $\rightarrow$ E,E $\rightarrow$ A\} y calculamos la cerradura para A\\
+   			\{A\}+=\{AC\} como B no aparece por lo tanto B no es superfluo.\\
+   			
+   			¿C es superfluo? A $\rightarrow$ B\\
+   			obtenemos un nuevo conjunto de dependencias funcionales F' = \{A $\rightarrow$ B, B $\rightarrow$ D, CD $\rightarrow$ E,E $\rightarrow$ A\} y calculamos la cerradura para A\\
+   			\{A\}+=\{ABD\} como C no aparece por lo tanto C no es superfluo.\\
+   			
+   			Así que obtenemos que \textbf{F$_{min}$}= \{A $\rightarrow$ BC, B $\rightarrow$ D, CD $\rightarrow$ E, E $\rightarrow$ A\} a partir de este conjunto creamos una relación por cada DF\\
+   			R$_1$(A,B,C) con A $\rightarrow$ BC\\
+   			R$_2$(B,D) con  B $\rightarrow$ D\\
+   			R$_3$(C,D,E) con CD $\rightarrow$ E\\
+   			R$_4$(E,A) con E $\rightarrow$ A\\
+   			
+   			Como la llave esta contenida en la relación R$_3$ por lo tanto esta es la normalización para R en 3NF.\\
    			
    		\end{itemize}
    	\end{enumerate}
@@ -157,14 +196,66 @@
     		\textbf{R(A,B,C,D,E,F)} con \textbf{F=\{BD $\rightarrow$ E, CD $\rightarrow$ A, E $\rightarrow$ C, B $\rightarrow$ D\}}
     	\end{center} 
     	\begin{itemize}
-    		\item ¿Qué puedes decir de \textbf{{A}+} y \textbf{{F}+}?
+    		\item ¿Qué puedes decir de \textbf{{A}+} y \textbf{{F}+}?\\
+    		\textbf{{A}+}= \{A\} y \textbf{{F}+}=\{F\} No alcanzan ningun otro atributo.
     		\item Calcula \textbf{{B}+}, ¿qué puedes decir de esta cerradura?\\
     		\{B\}+=\{BDECA\} Casí contiene todos los atributos de la relación por lo tanto podemos agregarle el atributo F y sería una llave para la relación R.
     		\item  Obtén todas las \textbf{llaves candidatas}.\\
     		\{BD\}+=\{BDECA\},\{CD\}+=\{CDA\}, \{E\}+=\{EC\}, \{B\}+=\{BDECA\}\\
     		Las llaves candidatas son: BF , BDF
     		\item  ¿R cumple con \textbf{BCNF}? ¿Cumple con \textbf{3NF}? (en caso contrario normaliza) \\
-    		Ya esta resuelto
+    		R no cumple BCNF ni con 3NF.\\
+    		La llave candidata es BF.
+    		\begin{itemize}
+    			\item Normalización con BCNF\\
+    			Todas las dependencias son violaciones a BCNF, tomamos BD $\rightarrow$ E, así tenemos la partición como:\\
+    			S(B,D,E) con BD $\rightarrow$ E, (ya no tiene ninguna violación)\\
+    			T(B,D,A,C,F) con \{ B $\rightarrow$ D, CD $\rightarrow$ A\}\\
+    			y E $\rightarrow$ C se pierde.
+    			en T las DF son violaciones por lo tanto hacemos una nueva partición,\\
+    			U(B,D) con B $\rightarrow$ D, (ya no tiene ninguna violación) \\
+    			V(B,A,C,F) con BACF $\rightarrow$ BACF\\
+    			y perdemos CD $\rightarrow$ A.\\
+    			
+    			Nuestro esquema normalizado con BCNF queda de la siguiente manera:\\
+    			S(B,D,E) con BD $\rightarrow$ E,\\
+    			U(B,D) con B $\rightarrow$ D,  \\
+    			V(B,A,C,F) con BACF $\rightarrow$ BACF
+    			
+    			\item Normalización con 3NF\\
+    			Todas las dependecias son violaciones a 3NF\\
+    			\begin{itemize}
+    				\item Superfluos por la izquierda\\
+    				Tomamos a BD $\rightarrow$ E,\\
+    				¿B? D $\rightarrow$ E,\\
+    				\textbf{\{D\}}+=\{D\}, E no aparece en la cerradura de D, por lo tanto B no es superfluo.
+    				¿D? B $\rightarrow$ E,\\
+    				\textbf{\{B\}}+=\{BDECA\}, E aparece en la cerradura de B, por lo tanto D es superfluo.\\
+    				
+    				Entonces \textbf{F$_{min}$}= \{B $\rightarrow$ E, CD $\rightarrow$ A, E $\rightarrow$ C, B $\rightarrow$ D\} y por la propiedad de la unión \textbf{F$_{min}$}= \{B $\rightarrow$ DE, CD $\rightarrow$ A, E $\rightarrow$ C\} \\
+    				
+    				
+    				\item Superfluos por la derecha:\\
+    				Tomamos la dependencia que tenga mas de un atributo a la derecha, en este caso es B $\rightarrow$ DE y buscamos elementos superfluos:\\
+    				¿D es superfluo? B $\rightarrow$ E \\
+    				obtenemos un nuevo conjunto de dependencias funcionales F' = \{B $\rightarrow$ E, CD $\rightarrow$ A, E $\rightarrow$ C\} y calculamos la cerradura para B\\
+    				\{B\}+=\{BEC\} como D no aparece por lo tanto D no es superfluo.\\
+    				
+    				¿E es superfluo? B $\rightarrow$ D \\
+    				obtenemos un nuevo conjunto de dependencias funcionales F' = \{B $\rightarrow$ D, CD $\rightarrow$ A, E $\rightarrow$ C\} y calculamos la cerradura para B\\
+    				\{B\}+=\{BD\} como E no aparece por lo tanto E no es superfluo.\\
+    				
+    				Así que obtenemos que \textbf{F$_{min}$}= \{B $\rightarrow$ DE, CD $\rightarrow$ A, E $\rightarrow$ C\} a partir de este conjunto creamos una relación por cada DF\\
+    				R$_1$(B,D,E) con B $\rightarrow$ DE\\
+    				R$_2$(C,D,A) con  CD $\rightarrow$ A\\
+    				R$_3$(E,C) con E $\rightarrow$ C\\
+    				
+    				Y como la llave no esta en ninguna relación creamos una nueva relación que la contenga R$_4$(B,F) con BF $\rightarrow$ BF.\\
+    				
+    				Por lo tanto R$_1$, R$_2$, R$_3$ y R$_4$ es la normalización en 3NF.
+    			\end{itemize}
+    			
+    		\end{itemize}
     		\item  Se ha decidido dividir \textbf{R} en las siguientes relaciones \textbf{S(A,B,C,D,F)} y \textbf{T(C,E)}, ¿se puede recuperar la información de \textbf{R}? No podemos recuperar toda la informacion de R
     	\end{itemize}
     
