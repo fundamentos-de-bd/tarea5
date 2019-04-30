@@ -37,13 +37,43 @@
     
     \item { \textbf{Preguntas de repaso}}
     \begin{enumerate}[label = \alph*.]
-        \item ¿Qué es una dependencia funcional y cómo se define?
+        \item ¿Qué es una dependencia funcional y cómo se define?\\
+        Es una relación entre un conjunto de atributos $X$ y
+        otro $Y$, denotada como $X \rightarrow Y$, donde a cada
+        posible valor de $Y$ se le asocia un único valor de $Y$.
         \item ¿Para qué sirve el concepto de \textbf{dependencia} en la normalización?
+        Sirve para especificar restricciones entre los atributos
+        de la relación, y determinar si son legales bajo esas
+        restricciones. Además es en base a estas dependencias
+        funcionales que se define el concepto de llave, que es
+        de donde se definen varias de las formas normales que se
+        usan para normalizar una relación.
         \item Sea A la llave de R(A, B, C). Indica \textbf{todas} las dependencias funcionales que implica \textbf{A}. \\
-        $A \rightarrow BC$\\
+        $\{A \rightarrow A$, $A \rightarrow B$, 
+        $A \rightarrow C$, $A \rightarrow AB$,
+        $A \rightarrow AC$,$A \rightarrow BC$, 
+        $A \rightarrow ABC\}$\\
         
-        \item ¿Qué es una forma normal? ¿Cuál es el objetivo de normalizar un modelo de datos?
-        \item ¿En qué casos es preferible lograr \textbf{3NF} en vez de \textbf{BCNF}?
+        \item ¿Qué es una forma normal? ¿Cuál es el objetivo de normalizar un modelo de datos? \\
+        Una relación está en forma normal si cumple una serie
+        de restricciones respecto a su esquema.\\
+        Cada regla aumenta el grado de normalización.\\
+        El propósito de esto es eliminar redundancia y 
+        garantizar ``JOIN`` sin pérdida, todo esto sin perder
+        dependencias funcionales sen el proceso.
+        \item ¿En qué casos es preferible lograr \textbf{3NF} en vez de \textbf{BCNF}?\\
+        La \textbf{BCNF} elimina toda la redundancia de la base
+        de datos, pero se pueden perder dependencias funcionales
+        en el proceso. En un caso real, si se pierden las
+        dependencias funcionales entonces la base de datos ya no
+        estaría modelando fielmente la realidad del caso de uso,
+        por lo que no es aceptable perderlas.\\
+        La \textbf{3NF} no elimina la redundancia completamente,
+        pero mantiene todas las dependencias funcionales.\\
+        Entonces, si al usar \textbf{BCNF} se pierden
+        dependencias funcionales, es necesarios usar una forma
+        de normalización menos estricta, entiéndase 
+        \textbf{3NF}.
     \end{enumerate}
 
     \item
@@ -203,7 +233,17 @@
     		\{B\}+=\{BDECA\} Casí contiene todos los atributos de la relación por lo tanto podemos agregarle el atributo F y sería una llave para la relación R.
     		\item  Obtén todas las \textbf{llaves candidatas}.\\
     		\{BD\}+=\{BDECA\},\{CD\}+=\{CDA\}, \{E\}+=\{EC\}, \{B\}+=\{BDECA\}\\
-    		Las llaves candidatas son: BF , BDF
+    		Las llaves candidatas son: BF.
+    		Una llave debe ser mínima, y como BF es llave
+    		ninguna conjunto de tres o más atributos puede ser
+    		llave en este esquema. Luego, todas los de conjuntos
+    		de un sólo atributo no son llaves, pues ninguna
+    		dependencia alcanza a F, por lo que para que
+    		alcance a todos, debe tener explícitamente a F.\\
+    		Luego, FA, FC y FD sólo tiene dependencias triviales
+    		, pues no forman parte de ninguna dependencia.\\
+    		Y $\{EF\}+ = EFC$, por lo que no es llave.\\
+    		Entonces la única llave es BF.
     		\item  ¿R cumple con \textbf{BCNF}? ¿Cumple con \textbf{3NF}? (en caso contrario normaliza) \\
     		R no cumple BCNF ni con 3NF.\\
     		La llave candidata es BF.
